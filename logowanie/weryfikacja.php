@@ -60,11 +60,20 @@ mysqli_query($link, "SET NAMES 'utf8'"); // ustawienie polskich znaków
 $result = mysqli_query($link, "SELECT * FROM users WHERE username='$user'"); // pobieranie wiersza, w którym login=login z formularza
 $listid = mysqli_query($link, "SELECT id FROM users WHERE username='$user'");
 $listname = mysqli_query($link, "SELECT username FROM users WHERE username='$user'");
-$listattempt = mysqli_query($link, "SELECT failedAttempt FROM users");
+$listattempt = mysqli_query($link, "SELECT failedAttempt FROM users WHERE username = '$user'");
+$listBlock = mysqli_query($link, "SELECT endDate FROM suspects WHERE user = '$user' Order by id Desc");
 $rekord = mysqli_fetch_array($result); // pobieranie wiersza z BD, struktura zmiennej jak w BD 
 $takeid = mysqli_fetch_array($listid);
 $takename = mysqli_fetch_array($listname);
 $takeattempt = mysqli_fetch_array($listattempt);
+$takeBlock = mysqli_fetch_array($listBlock);
+
+
+if($takeBlock[0] > date('Y-m-d H:i:s')){
+    header('Location: index3.php?sussy');
+    exit();
+}
+
 if(!$rekord) //Jeśli brak, to nie ma użytkownika o podanym loginie
 {
 mysqli_close($link); // zamknięcie połączenia z BD
@@ -78,7 +87,8 @@ if($rekord['password']==$pass) // czy hasło zgadza się z BD
     $_SESSION ['u_id'] = $takeid[0];
     $_SESSION ['ur_name'] = $takename[0];
     $_SESSION ['loggedin'] = true;
-    
+    $failedCount = 0;
+    mysqli_query($link, "UPDATE users SET failedAttempt = '$failedCount' WHERE username = '$takename[0]';");
     
 }
 else // w przypadku gdy hasło się nie zgadza
@@ -88,12 +98,15 @@ if ($takeattempt[0] < 3){
     $failedCount = $takeattempt[0] + 1;
     mysqli_query($link, "UPDATE users SET failedAttempt = '$failedCount' WHERE username = '$takename[0]';");
 }elseif ($takeattempt[0] >= 3){
+    $failedCount = 0;
     $suspectip = $_SERVER['REMOTE_ADDR'];
     $time  = date('Y-m-d H:i:s');
-    $exptime = date('Y-m-d H:i:s', strtotime('+20 Secconds'));
-    mysqli_query($link, "INSERT INTO goscieportalu (user, accidentDate, endDate) VALUES ('$takename[0]', '$time', '$exptime');");
+    $exptime = date('Y-m-d H:i:s', strtotime('+20 Seconds'));
+    mysqli_query($link, "INSERT INTO suspects (user, suspectIP, accidentDate, endDate) VALUES ('$takename[0]', '$suspectip', '$time', '$exptime');");
+    mysqli_query($link, "UPDATE users SET failedAttempt = '$failedCount' WHERE username = '$takename[0]';");
+
 }
-header('Location: index3.php?błąd_logowania'); // przenieś do pliku index3
+ header('Location: index3.php?błąd_logowania'); // przenieś do pliku index3
 mysqli_close($link);
 exit();
 }
