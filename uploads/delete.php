@@ -9,7 +9,13 @@ exit();
 if(isset($_POST['subdir'])){
     $subdir = $_POST['subdir'];
     rmdir($_SESSION ['ur_name'].'/'.$subdir);
-    header("Location: menu.php?uploadsuccess");
+    header("Location: menu.php?delete_dir_success");
+    exit();
+}
+if(isset($_POST['deletefile'])){
+    $file = $_POST['deletefile'];
+    unlink($_SESSION ['ur_name'].'/'.$file);
+    header("Location: menu.php?DELETE_file_success");
     exit();
 }
 

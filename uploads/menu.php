@@ -77,9 +77,16 @@ $file = $_SESSION ['ur_name']."/".$myfiles[$y];
         <?php
     } else {
         ?>
-        <form id="<?php echo $myfiles[$y] ?>" action="display.php" method="post">
+        <form id="<?php echo $myfiles[$y].'w' ?>" action="display.php" method="post">
         <input type="hidden" name="fileToDisplay" value="<?php echo $myfiles[$y]?>"/>
-        <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y] ?>').submit();">wyświetl</a>
+        <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'w' ?>').submit();">wyświetl</a>
+        </form>
+        <?php
+        //usuwanie pliku
+        ?>
+        <form id="<?php echo $myfiles[$y].'d' ?>" action="delete.php" method="post">
+        <input type="hidden" name="deletefile" value="<?php echo $myfiles[$y]?>"/>
+        <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'d' ?>').submit();">usuń</a>
         </form>
         <?php
     }
