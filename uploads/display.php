@@ -14,12 +14,14 @@ if (!isset($_SESSION['loggedin']))
     header('Location: /z5/logowanie/index3.php');
 exit();
 }
-
+//zmienne
 $displayFile = $_POST['fileToDisplay'];
 $subdire = $_POST['subdire'];
 $fileExt = explode('.', $displayFile);
 $fileActualExt = strtolower(end($fileExt));
+//zmienne
 
+//wyswietlanie dla podkatalogu
 if ($_SERVER['HTTP_REFERER'] === 'https://kirianpll.beep.pl/z5/uploads/subdirectory.php') {
     echo '<br><a href="/z5/uploads/subdirectory.php"> Wróć</a><br>';
     if($fileActualExt == "jpg" OR $fileActualExt == "gif"){
@@ -29,6 +31,9 @@ if ($_SERVER['HTTP_REFERER'] === 'https://kirianpll.beep.pl/z5/uploads/subdirect
     }elseif($fileActualExt == "mp3"){
         echo "<audio controls> <source src=".$_SESSION ['ur_name'].'/'.$subdire.$displayFile." </audio>";
     }
+//wyswietlanie dla podkatalogu
+
+//wyświetlanie dla katalogu gluwnego
 } else{
     echo '<br><a href="/z5/uploads/menu.php"> Wróć</a><br>';
     if($fileActualExt == "jpg" OR $fileActualExt == "gif"){
@@ -39,13 +44,7 @@ if ($_SERVER['HTTP_REFERER'] === 'https://kirianpll.beep.pl/z5/uploads/subdirect
         echo "<audio controls> <source src=".$_SESSION ['ur_name'].'/'.$displayFile." </audio>";
     }
 }
-
-
-
-
-
-
-
+//wyświetlanie dla katalogu gluwnego
 ?>
 </BODY>
 </HTML>

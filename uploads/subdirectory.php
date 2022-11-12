@@ -15,11 +15,14 @@ if (!isset($_SESSION['loggedin']))
 exit();
 }
 
+//zmienna z nazwą podkatalogu
 echo '<br><a href="/z5/uploads/menu.php">Wstecz</a><br>';
 if ($_SERVER['HTTP_REFERER'] === 'https://kirianpll.beep.pl/z5/uploads/menu.php'){
   $_SESSION ['subdir'] = $_POST['subdir'];
 }
+//zmienna z nazwą podkatalogu
 
+//dodawanie pliku
 ?>
 <h4> Dodaj plik </h4>
 <form method="POST" action="upload.php" enctype="multipart/form-data"><br>
@@ -28,11 +31,10 @@ File:   <input type="file" name="file">
 <input type="submit" value="Send"/>
 </form> 
 <?php
+//dodawanie pliku
 
-
+//listowanie katalogu i posty
 $myfiles = array_diff(scandir($_SESSION ['ur_name']."/".$_SESSION ['subdir']), array('..', '.')); 
-
-
 for($x = 0; $x<count($myfiles); $x++){
 $y=$x+2;
 $fileExt = explode('.', $myfiles[$y]);
@@ -65,11 +67,8 @@ echo $myfiles[$y];
         <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'p' ?>').submit();">pobierz</a>
         </form>
         <?php
-
 }
-
-
-
+//listowanie katalogu i posty
 ?>
 </BODY>
 </HTML>
