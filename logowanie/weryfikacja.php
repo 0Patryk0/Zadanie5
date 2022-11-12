@@ -52,6 +52,7 @@ function createCookie(name, value, days) {
 </script>
 <?php
 
+//polączenie z baza oraz pobranie rekordów do weryfikacji
 $user=$_POST['user']; // login z formularza
 $pass=$_POST['pass']; // hasło z formularza
 $link = mysqli_connect('mysql02.kirianpll.beep.pl', 'szkolna5', 'street', 'z5_'); // połączenie z BD 
@@ -67,18 +68,24 @@ $takeid = mysqli_fetch_array($listid);
 $takename = mysqli_fetch_array($listname);
 $takeattempt = mysqli_fetch_array($listattempt);
 $takeBlock = mysqli_fetch_array($listBlock);
+//polączenie z baza oraz pobranie rekordów do weryfikacji
 
-
+//blokada brute force
 if($takeBlock[0] > date('Y-m-d H:i:s')){
     header('Location: index3.php?sussy');
     exit();
 }
+//blokada brute force
 
+//sprawdzenie loginu
 if(!$rekord) //Jeśli brak, to nie ma użytkownika o podanym loginie
 {
-mysqli_close($link); // zamknięcie połączenia z BD
+mysqli_close($link); 
 echo "Brak użytkownika o takim loginie !"; 
 }
+//sprawdzenie loginu
+
+//poprawne logowanie
 else // jeśli $rekord istnieje
 { 
 if($rekord['password']==$pass) // czy hasło zgadza się z BD
@@ -91,6 +98,9 @@ if($rekord['password']==$pass) // czy hasło zgadza się z BD
     mysqli_query($link, "UPDATE users SET failedAttempt = '$failedCount' WHERE username = '$takename[0]';");
     
 }
+//poprawne logowanie
+
+//błędne logowanie
 else // w przypadku gdy hasło się nie zgadza
 {
 
@@ -102,7 +112,7 @@ if ($takeattempt[0] < 3){
     $suspectip = $_SERVER['REMOTE_ADDR'];
     $time  = date('Y-m-d H:i:s');
     $exptime = date('Y-m-d H:i:s', strtotime('+20 Seconds'));
-    mysqli_query($link, "INSERT INTO suspects (user, suspectIP, accidentDate, endDate) VALUES ('$takename[0]', '$suspectip', '$time', '$exptime');");
+    mysqli_query($link, "INSERT INTO suspects (user, suspectIP, accidentDate, endDate, actual) VALUES ('$takename[0]', '$suspectip', '$time', '$exptime', '1');");
     mysqli_query($link, "UPDATE users SET failedAttempt = '$failedCount' WHERE username = '$takename[0]';");
 
 }
@@ -110,6 +120,7 @@ if ($takeattempt[0] < 3){
 mysqli_close($link);
 exit();
 }
+//błęde logowanie
 }
 mysqli_close($link);
 ?>
