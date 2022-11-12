@@ -16,6 +16,7 @@ $fileError = $_FILES['file']['error'];
 
 $fileExt = explode('.', $_FILES['file']['name']);
 $fileActualExt = strtolower(end($fileExt));
+$allowed = array('png', 'gif', 'jpg', 'mp4', 'mp3');
 
 // is file exist
 if ($fileError > 0){
@@ -38,7 +39,7 @@ else {
     }
     $fileDestination = $_SESSION ['ur_name'].'/'.$fileName;
 }
-// zapisz jesli poprednie sa prawdziwe
+// zapisz jesli poprzednie sa prawdziwe
 move_uploaded_file($fileTmpName, $fileDestination);
 
 

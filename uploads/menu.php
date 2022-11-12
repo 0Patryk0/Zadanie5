@@ -58,6 +58,9 @@ $myfiles = array_diff(scandir($_SESSION ['ur_name']), array('..', '.'));
 
 for($x = 0; $x<count($myfiles); $x++){
 $y=$x+2;
+$fileExt = explode('.', $myfiles[$y]);
+$fileActualExt = strtolower(end($fileExt));
+$allowed = array('png', 'jpg', 'mp4', 'mp3', "gif");
 echo $myfiles[$y];
 $file = $_SESSION ['ur_name']."/".$myfiles[$y];
     if(is_dir($file)) {
@@ -76,12 +79,15 @@ $file = $_SESSION ['ur_name']."/".$myfiles[$y];
         </form>
         <?php
     } else {
+        //wyświetlenie pliku
+        if(in_array($fileActualExt, $allowed)){
         ?>
         <form id="<?php echo $myfiles[$y].'w' ?>" action="display.php" method="post">
         <input type="hidden" name="fileToDisplay" value="<?php echo $myfiles[$y]?>"/>
         <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'w' ?>').submit();">wyświetl</a>
         </form>
         <?php
+        }
         //usuwanie pliku
         ?>
         <form id="<?php echo $myfiles[$y].'d' ?>" action="delete.php" method="post">

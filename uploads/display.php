@@ -15,29 +15,34 @@ if (!isset($_SESSION['loggedin']))
 exit();
 }
 
-echo '<br><a href="/z5/uploads/menu.php"> Wróć</a><br>';
-
 $displayFile = $_POST['fileToDisplay'];
 $subdire = $_POST['subdire'];
+$fileExt = explode('.', $displayFile);
+$fileActualExt = strtolower(end($fileExt));
 
 if ($_SERVER['HTTP_REFERER'] === 'https://kirianpll.beep.pl/z5/uploads/subdirectory.php') {
-    $image = "https://kirianpll.beep.pl/z5/uploads/".$_SESSION ['ur_name']."/".$subdire."/".$displayFile;
-    
+    echo '<br><a href="/z5/uploads/subdirectory.php"> Wróć</a><br>';
+    if($fileActualExt == "jpg" OR $fileActualExt == "gif"){
+        echo '<img src="'.$_SESSION ['ur_name'].'/'.$subdire.'/'.$displayFile.'" >';
+    }elseif($fileActualExt == "mp4"){
+        echo "<video controls> <source src=".$_SESSION ['ur_name']."/".$subdire.$displayFile." type='video/mp4'> </video>";
+    }elseif($fileActualExt == "mp3"){
+        echo "<audio controls> <source src=".$_SESSION ['ur_name'].'/'.$subdire.$displayFile." </audio>";
+    }
 } else{
-    $image = "https://kirianpll.beep.pl/z5/uploads/".$_SESSION ['ur_name']."/".$displayFile;
-    
+    echo '<br><a href="/z5/uploads/menu.php"> Wróć</a><br>';
+    if($fileActualExt == "jpg" OR $fileActualExt == "gif"){
+        echo '<img src="'.$_SESSION ['ur_name'].'/'.$displayFile.'" >';
+    }elseif($fileActualExt == "mp4"){
+        echo "<video controls> <source src=".$_SESSION ['ur_name']."/".$displayFile." type='video/mp4'> </video>";
+    }elseif($fileActualExt == "mp3"){
+        echo "<audio controls> <source src=".$_SESSION ['ur_name'].'/'.$displayFile." </audio>";
+    }
 }
 
 
-// Read image path, convert to base64 encoding
-$imageData = base64_encode(file_get_contents($image));
 
-// Format the image SRC:  data:{mime};base64,{data};
-$src = 'data: '.mime_content_type($image).';base64,'.$imageData;
 
-// Echo out a sample image
-
-echo '<img src="' . $src . '">';
 
 
 
