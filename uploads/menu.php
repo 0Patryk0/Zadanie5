@@ -61,10 +61,18 @@ $y=$x+2;
 echo $myfiles[$y];
 $file = $_SESSION ['ur_name']."/".$myfiles[$y];
     if(is_dir($file)) {
+        //przejście do katalogu
         ?>
         <form id="<?php echo $myfiles[$y] ?>" action="subdirectory.php" method="post">
         <input type="hidden" name="subdir" value="<?php echo $myfiles[$y]?>"/>
         <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y] ?>').submit();">Przejdź</a>
+        </form>
+        <?php
+        //usuwanie katalogu
+        ?>
+        <form id="<?php echo $myfiles[$y].'u' ?>" action="delete.php" method="post">
+        <input type="hidden" name="subdir" value="<?php echo $myfiles[$y]?>"/>
+        <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'u' ?>').submit();">usuń</a>
         </form>
         <?php
     } else {
