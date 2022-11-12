@@ -52,6 +52,14 @@ echo $myfiles[$y];
         <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'de' ?>').submit();">usuń</a>
         </form>
         <?php
+        //pobieaie pliku
+        ?>
+        <form id="<?php echo $myfiles[$y].'p' ?>" action="download.php" method="post">
+        <input type="hidden" name="downloadfilesub" value="<?php echo $myfiles[$y]?>"/>
+        <input type="hidden" name="subdirehelper" value="<?php echo $_SESSION ['subdir'] ?>"/>
+        <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'p' ?>').submit();">pobierz</a>
+        </form>
+        <?php
 
 }
 

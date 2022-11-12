@@ -89,6 +89,13 @@ $file = $_SESSION ['ur_name']."/".$myfiles[$y];
         <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'d' ?>').submit();">usuń</a>
         </form>
         <?php
+        //pobieranie pliku
+        ?>
+        <form id="<?php echo $myfiles[$y].'p' ?>" action="download.php" method="post">
+        <input type="hidden" name="downloadfile" value="<?php echo $myfiles[$y]?>"/>
+        <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'p' ?>').submit();">pobierz</a>
+        </form>
+        <?php
     }
 }
 //Listowanie katalogu i posty
