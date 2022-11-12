@@ -91,6 +91,7 @@ else // jeśli $rekord istnieje
 if($rekord['password']==$pass) // czy hasło zgadza się z BD
 { 
     session_start();
+    $_SESSION ['subdir'] = " ";
     $_SESSION ['u_id'] = $takeid[0];
     $_SESSION ['ur_name'] = $takename[0];
     $_SESSION ['loggedin'] = true;

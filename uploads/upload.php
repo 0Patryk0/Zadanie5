@@ -7,8 +7,7 @@ header('Location: /z5/logowanie/index3.php');
 exit();
 }
 // Variables making, from $_POST and $_FILES
-$userFrom = $_SESSION ['ur_name'];
-$userTo = $_SESSION['userTo'];
+$subdir = $_POST['subdir'];
 $file = $_FILES['file'];
 $fileName = $_FILES['file']['name'];
 $fileTmpName = $_FILES['file']['tmp_name'];
@@ -17,29 +16,35 @@ $fileError = $_FILES['file']['error'];
 
 $fileExt = explode('.', $_FILES['file']['name']);
 $fileActualExt = strtolower(end($fileExt));
-$allowed = array('png', 'gif', 'jpg', 'mp4', 'mp3');
 
-
-// Immage and users dirextory dealing
-if ($fileError <= 0){
-    if (in_array($fileActualExt, $allowed)){
-        if ($fileSize < 10000000){
-            $fileNameNew = uniqid('', true).".".$fileActualExt;
-            $fileDestination = 'uploads/'.$_SESSION ['ur_name'].'/'.$fileNameNew;
-            move_uploaded_file($fileTmpName, $fileDestination);      
-        } else {
-            header("Location: createdir.php?file_is_to_big");
-            exit();
-        }
-    } else {
-        header("Location: createdir.php?Wrong_file_type");
+// is file exist
+if ($fileError > 0){
+    header("Location: menu.php?empty_request");
+    exit();
+}
+// plik z subdirectory    
+if ($_SERVER['HTTP_REFERER'] === 'https://kirianpll.beep.pl/z5/uploads/subdirectory.php'){
+    if (file_exists($_SESSION ['ur_name'].'/'.$subdir.'/'.$fileName)){
+        header("Location: subdirectory.php?file_exist_sub");
         exit();
     }
-} else {
-    header("Location: createdir.php?empty_request");
+    $fileDestination = $_SESSION ['ur_name'].'/'.$subdir.'/'.$fileName;
+} 
+// plik z katalogu glównego
+else {
+    if (file_exists($_SESSION ['ur_name'].'/'.$fileName)){
+        header("Location: menu.php?file_exist");
+        exit();
+    }
+    $fileDestination = $_SESSION ['ur_name'].'/'.$fileName;
 }
+// zapisz jesli poprednie sa prawdziwe
+move_uploaded_file($fileTmpName, $fileDestination);
 
 
-// Exit
-header("Location: createdir.php?uploadsuccess");
+if ($_SERVER['HTTP_REFERER'] === 'https://kirianpll.beep.pl/z5/uploads/subdirectory.php'){
+header("Location: subdirectory.php?uploadsuccess_sub");
+} else {
+    header("Location: menu.php?uploadsuccess");
+}
 ?>
