@@ -18,30 +18,17 @@ echo $_SESSION['ur_name'];
 echo '<br><a href="/z5/logowanie/logout.php"> logout</a>';
 
 
-echo "<br> Historia logowań";
 
-$dbhost='mysql02.kirianpll.beep.pl'; $dbuser='szkolna5'; $dbpassword='street'; $dbname='z5_';
-$connection = mysqli_connect($dbhost, $dbuser, $dbpassword, $dbname);
-if (!$connection)
-{
-echo " MySQL Connection error." . PHP_EOL;
-echo "Errno: " . mysqli_connect_errno() . PHP_EOL;
-echo "Error: " . mysqli_connect_error() . PHP_EOL;
-exit;
+
+$myfiles = scandir('/logowanie'); 
+
+
+for($x = 0; $x<count($myfiles); $x++){
+    $y=$x+2;
+    echo $myfiles[$y];
+    echo '<br>';
 }
-$result = mysqli_query($connection, "SELECT * from goscieportalu WHERE user!='admin' Order by id Desc ") or die ("DB error: $dbname");
-print "<TABLE CELLPADDING=5 BORDER=1>";
-print "<TR><TD>User</TD><TD>Date/Time</TD><TD>IP</TD><TD>Browser</TD></TR>\n";
-while ($row = mysqli_fetch_array ($result))
-{
-$user = $row[2];
-$date = $row[1];
-$ip= $row[3];
-$browser = $row[4];
-print "<TR><TD>$user</TD><TD>$date</TD><TD>$ip</TD><TD>$browser</TD></TR>\n";
-}
-print "</TABLE>";
-mysqli_close($connection);
+
 
 
 ?>
