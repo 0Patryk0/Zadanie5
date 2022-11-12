@@ -1,3 +1,6 @@
+<style>
+
+    </style>
 <?php
 
 session_start(); // zapewnia dostęp do zmienny sesyjnych w danym pliku
@@ -62,6 +65,11 @@ $fileExt = explode('.', $myfiles[$y]);
 $fileActualExt = strtolower(end($fileExt));
 $allowed = array('png', 'jpg', 'mp4', 'mp3', "gif");
 echo $myfiles[$y];
+if($fileActualExt == "jpg" OR $fileActualExt == "gif"){
+    echo '<img width="70" height="70" src="'.$_SESSION ['ur_name'].'/'.$myfiles[$y].'" >';
+}if($fileActualExt == "mp4"){
+    echo "<video width='70' height='70' > <source src=".$_SESSION ['ur_name']."/".$myfiles[$y]." type='video/mp4'> </video>";
+}
 $file = $_SESSION ['ur_name']."/".$myfiles[$y];
     if(is_dir($file)) {
         //przejście do katalogu
