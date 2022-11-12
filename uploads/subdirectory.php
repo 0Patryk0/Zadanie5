@@ -36,11 +36,20 @@ $myfiles = array_diff(scandir($_SESSION ['ur_name']."/".$_SESSION ['subdir']), a
 for($x = 0; $x<count($myfiles); $x++){
 $y=$x+2;
 echo $myfiles[$y];
+        //wyswietlanie pliku
         ?>
         <form id="<?php echo $myfiles[$y] ?>" action="display.php" method="post">
         <input type="hidden" name="fileToDisplay" value="<?php echo $myfiles[$y] ?>"/>
         <input type="hidden" name="subdire" value="<?php echo $_SESSION ['subdir'] ?>"/>
         <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y] ?>').submit();">wyświetl</a>
+        </form>
+        <?php
+        //usuwanie pliku
+        ?>
+        <form id="<?php echo $myfiles[$y].'de' ?>" action="delete.php" method="post">
+        <input type="hidden" name="deletefilesub" value="<?php echo $myfiles[$y]?>"/>
+        <input type="hidden" name="subdirehelper" value="<?php echo $_SESSION ['subdir'] ?>"/>
+        <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'de' ?>').submit();">usuń</a>
         </form>
         <?php
 
