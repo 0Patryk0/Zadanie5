@@ -21,28 +21,17 @@ $fileExt = explode('.', $displayFile);
 $fileActualExt = strtolower(end($fileExt));
 //zmienne
 
-//wyswietlanie dla podkatalogu
-if ($_SERVER['HTTP_REFERER'] === 'https://kirianpll.beep.pl/z5/uploads/subdirectory.php') {
-    echo '<br><a href="/z5/uploads/subdirectory.php"> Wróć</a><br>';
-    if($fileActualExt == "jpg" OR $fileActualExt == "gif"){
-        echo '<img src="'.$_SESSION ['ur_name'].'/'.$subdire.'/'.$displayFile.'" >';
-    }elseif($fileActualExt == "mp4"){
-        echo "<video controls> <source src=".$_SESSION ['ur_name']."/".$subdire.$displayFile." type='video/mp4'> </video>";
-    }elseif($fileActualExt == "mp3"){
-        echo "<audio controls> <source src=".$_SESSION ['ur_name'].'/'.$subdire.$displayFile." </audio>";
-    }
-//wyswietlanie dla podkatalogu
 
-//wyświetlanie dla katalogu gluwnego
-} else{
-    echo '<br><a href="/z5/uploads/menu.php"> Wróć</a><br>';
-    if($fileActualExt == "jpg" OR $fileActualExt == "gif"){
-        echo '<img src="'.$_SESSION ['ur_name'].'/'.$displayFile.'" >';
-    }elseif($fileActualExt == "mp4"){
-        echo "<video controls> <source src=".$_SESSION ['ur_name']."/".$displayFile." type='video/mp4'> </video>";
-    }elseif($fileActualExt == "mp3"){
-        echo "<audio controls> <source src=".$_SESSION ['ur_name'].'/'.$displayFile." </audio>";
-    }
+
+echo '<br><a href="/z5/uploads/'.$_SESSION ['header'].'"> Wróć</a><br>';
+if($fileActualExt == "jpg" OR $fileActualExt == "gif"){
+    echo '<img src="'.$_SESSION ['currentdir'].'/'.$displayFile.'" >';
+}elseif($fileActualExt == "mp4"){
+    echo "<video controls> <source src=".$_SESSION ['currentdir']."/".$displayFile." type='video/mp4'> </video>";
+}elseif($fileActualExt == "mp3"){
+    echo "<audio controls> <source src=".$_SESSION ['currentdir'].'/'.$displayFile." </audio>";
 }
-//wyświetlanie dla katalogu gluwnego
+
+
+
 ?>
