@@ -21,8 +21,7 @@ $fileExt = explode('.', $displayFile);
 $fileActualExt = strtolower(end($fileExt));
 //zmienne
 
-
-
+//Wyświetlanie pliku
 echo '<br><a href="/z5/uploads/'.$_SESSION ['header'].'"> Wróć</a><br>';
 if($fileActualExt == "jpg" OR $fileActualExt == "gif"){
     echo '<img src="'.$_SESSION ['currentdir'].'/'.$displayFile.'" >';
@@ -31,7 +30,6 @@ if($fileActualExt == "jpg" OR $fileActualExt == "gif"){
 }elseif($fileActualExt == "mp3"){
     echo "<audio controls> <source src=".$_SESSION ['currentdir'].'/'.$displayFile." </audio>";
 }
-
-
+//Wyświetlanie pliku
 
 ?>

@@ -7,10 +7,10 @@ header('Location: /z5/logowanie/index3.php');
 exit();
 }
 
-//pobieranie z katalogu gluwnego
+//pobieranie pliku
 if(isset($_POST['downloadfile'])){
 $filename = $_POST['downloadfile'];
-$path = $_SESSION ['ur_name'].'/'.$filename;
+$path = $_SESSION ['currentdir'].'/'.$filename;
 if(file_exists($path))
 {
   header('Content-Disposition: attachment; filename=' . $filename);  
@@ -22,23 +22,5 @@ else
   echo 'File does not exists on given path';
 }
 }
-
-//pobieranie z subkatalogu
-if(isset($_POST['downloadfilesub'])){
-    $filename = $_POST['downloadfilesub'];
-    $subpath = $_POST['subdirehelper'];
-    $path = $_SESSION ['ur_name'].'/'.$subpath.'/'.$filename;
-    if(file_exists($path))
-    {
-      header('Content-Disposition: attachment; filename=' . $filename);  
-      readfile($path); 
-      exit;
-    }
-    else
-    {
-      echo 'File does not exists on given path';
-    }
-}
-
-
+//pobieranie pliku
 ?>

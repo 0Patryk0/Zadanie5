@@ -50,7 +50,6 @@ echo $myfiles[$y];
         <div style="display: flex; margin-left: 20px;">
         <form id="<?php echo $myfiles[$y] ?>" action="display.php" method="post">
         <input type="hidden" name="fileToDisplay" value="<?php echo $myfiles[$y] ?>"/>
-        <input type="hidden" name="subdire" value="<?php echo $_SESSION ['subdir'] ?>"/>
         <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y] ?>').submit();"><ion-icon name="eye-outline"></ion-icon></a>
         </form>
         <?php
@@ -67,8 +66,7 @@ echo $myfiles[$y];
         echo "<->";
         ?>
         <form id="<?php echo $myfiles[$y].'p' ?>" action="download.php" method="post">
-        <input type="hidden" name="downloadfilesub" value="<?php echo $myfiles[$y]?>"/>
-        <input type="hidden" name="subdirehelper" value="<?php echo $_SESSION ['subdir'] ?>"/>
+        <input type="hidden" name="downloadfile" value="<?php echo $myfiles[$y]?>"/>
         <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'p' ?>').submit();"><ion-icon name="cloud-download-outline"></a>
         </form>
         </div>
