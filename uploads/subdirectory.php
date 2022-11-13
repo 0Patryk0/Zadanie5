@@ -5,7 +5,8 @@
 
 </HEAD>
 <BODY>
-
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <?php
 
 session_start(); // zapewnia dostęp do zmienny sesyjnych w danym pliku
@@ -15,8 +16,9 @@ if (!isset($_SESSION['loggedin']))
 exit();
 }
 
+echo '<br><a href="/z5/uploads/menu.php"><ion-icon name="arrow-back-circle-outline"></ion-icon></a><br>';
+
 //zmienna z nazwą podkatalogu
-echo '<br><a href="/z5/uploads/menu.php">Wstecz</a><br>';
 if ($_SERVER['HTTP_REFERER'] === 'https://kirianpll.beep.pl/z5/uploads/menu.php'){
   $_SESSION ['subdir'] = $_POST['subdir'];
 }
@@ -44,28 +46,32 @@ echo $myfiles[$y];
         //wyswietlanie pliku
         if(in_array($fileActualExt, $allowed)){
         ?>
+        <div style="display: flex; margin-left: 20px;">
         <form id="<?php echo $myfiles[$y] ?>" action="display.php" method="post">
         <input type="hidden" name="fileToDisplay" value="<?php echo $myfiles[$y] ?>"/>
         <input type="hidden" name="subdire" value="<?php echo $_SESSION ['subdir'] ?>"/>
-        <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y] ?>').submit();">wyświetl</a>
+        <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y] ?>').submit();"><ion-icon name="eye-outline"></ion-icon></a>
         </form>
         <?php
         }
         //usuwanie pliku
+        echo "<->";
         ?>
         <form id="<?php echo $myfiles[$y].'de' ?>" action="delete.php" method="post">
         <input type="hidden" name="deletefilesub" value="<?php echo $myfiles[$y]?>"/>
         <input type="hidden" name="subdirehelper" value="<?php echo $_SESSION ['subdir'] ?>"/>
-        <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'de' ?>').submit();">usuń</a>
+        <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'de' ?>').submit();"><ion-icon name="trash-outline"></ion-icon></a>
         </form>
         <?php
         //pobieaie pliku
+        echo "<->";
         ?>
         <form id="<?php echo $myfiles[$y].'p' ?>" action="download.php" method="post">
         <input type="hidden" name="downloadfilesub" value="<?php echo $myfiles[$y]?>"/>
         <input type="hidden" name="subdirehelper" value="<?php echo $_SESSION ['subdir'] ?>"/>
-        <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'p' ?>').submit();">pobierz</a>
+        <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'p' ?>').submit();"><ion-icon name="cloud-download-outline"></a>
         </form>
+        </div>
         <?php
 }
 //listowanie katalogu i posty

@@ -46,5 +46,3 @@ if ($_SERVER['HTTP_REFERER'] === 'https://kirianpll.beep.pl/z5/uploads/subdirect
 }
 //wyświetlanie dla katalogu gluwnego
 ?>
-</BODY>
-</HTML>
