@@ -22,6 +22,8 @@ echo '<br><a href="/z5/uploads/menu.php"><ion-icon name="arrow-back-circle-outli
 if ($_SERVER['HTTP_REFERER'] === 'https://kirianpll.beep.pl/z5/uploads/menu.php'){
   $_SESSION ['subdir'] = $_POST['subdir'];
 }
+$_SESSION ['currentdir'] = $_SESSION['ur_name'].'/'.$_SESSION ['subdir'];
+$_SESSION ['header'] = "subdirectory.php";
 //zmienna z nazwą podkatalogu
 
 //dodawanie pliku
@@ -29,14 +31,13 @@ if ($_SERVER['HTTP_REFERER'] === 'https://kirianpll.beep.pl/z5/uploads/menu.php'
 <h4> Dodaj plik </h4>
 <form method="POST" action="upload.php" enctype="multipart/form-data"><br>
 File:   <input type="file" name="file">
-<input type="hidden" name="subdir" value="<?php echo $_SESSION ['subdir']?>"/>
 <input type="submit" value="Send"/>
 </form> 
 <?php
 //dodawanie pliku
 
 //listowanie katalogu i posty
-$myfiles = array_diff(scandir($_SESSION ['ur_name']."/".$_SESSION ['subdir']), array('..', '.')); 
+$myfiles = array_diff(scandir($_SESSION ['currentdir']), array('..', '.')); 
 for($x = 0; $x<count($myfiles); $x++){
 $y=$x+2;
 $fileExt = explode('.', $myfiles[$y]);

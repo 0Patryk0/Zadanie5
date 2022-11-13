@@ -28,18 +28,20 @@ if ($takeAccident[0] == 1){
     $listAccidentIP = mysqli_query($link, "SELECT suspectIP FROM suspects WHERE actual='1' Order by id Desc ");
     $takeAccidentDate = mysqli_fetch_array($listAccidentDate);
     $takeAccidentIP = mysqli_fetch_array($listAccidentIP);
-    echo '<script>alert("'.$takeAccidentDate[0].' nastąpiły nieudane pruby logowania na konto z IP '.$takeAccidentIP[0].'")</script>';
+    echo '<script> alert("'.$takeAccidentDate[0].' nastąpiły nieudane pruby logowania na konto z IP '.$takeAccidentIP[0].'")</script>';
     mysqli_query($link, "UPDATE suspects SET actual = '0' WHERE user ='{$_SESSION ['ur_name']}' AND actual = '1';");
 }
 mysqli_close($link);
 //Alert jeśli nastąpiły 3 nieudane logowania
 
-//witaj + linki
+//witaj + linki + zmienna katalogowa
 echo "Logged in as ";
 echo $_SESSION['ur_name'];
+$_SESSION ['currentdir'] = $_SESSION['ur_name'];
+$_SESSION ['header'] = "menu.php";
 
 echo '<br><a href="/z5/logowanie/logout.php"> logout</a><br>';
-//witaj + linki
+//witaj + linki + zmienna katalogowa
 
 //Tworzenie podkatalogu
 ?>

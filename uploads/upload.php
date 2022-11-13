@@ -23,29 +23,18 @@ if ($fileError > 0){
     header("Location: menu.php?empty_request");
     exit();
 }
-// plik z subdirectory    
-if ($_SERVER['HTTP_REFERER'] === 'https://kirianpll.beep.pl/z5/uploads/subdirectory.php'){
-    if (file_exists($_SESSION ['ur_name'].'/'.$subdir.'/'.$fileName)){
-        header("Location: subdirectory.php?file_exist_sub");
-        exit();
-    }
-    $fileDestination = $_SESSION ['ur_name'].'/'.$subdir.'/'.$fileName;
-} 
-// plik z katalogu glównego
-else {
-    if (file_exists($_SESSION ['ur_name'].'/'.$fileName)){
+
+//Dodawanie pliku
+    if (file_exists($_SESSION ['currentdir'].'/'.$fileName)){
         header("Location: menu.php?file_exist");
         exit();
     }
-    $fileDestination = $_SESSION ['ur_name'].'/'.$fileName;
-}
-// zapisz jesli poprzednie sa prawdziwe
+    $fileDestination = $_SESSION ['currentdir'].'/'.$fileName;
+
+
 move_uploaded_file($fileTmpName, $fileDestination);
+//Dodawanie pliku
 
+header("Location: ".$_SESSION ['header']."?uploadsuccess");
 
-if ($_SERVER['HTTP_REFERER'] === 'https://kirianpll.beep.pl/z5/uploads/subdirectory.php'){
-header("Location: subdirectory.php?uploadsuccess_sub");
-} else {
-    header("Location: menu.php?uploadsuccess");
-}
 ?>
