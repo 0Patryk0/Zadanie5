@@ -59,8 +59,7 @@ echo $myfiles[$y];
         echo "<->";
         ?>
         <form id="<?php echo $myfiles[$y].'de' ?>" action="delete.php" method="post">
-        <input type="hidden" name="deletefilesub" value="<?php echo $myfiles[$y]?>"/>
-        <input type="hidden" name="subdirehelper" value="<?php echo $_SESSION ['subdir'] ?>"/>
+        <input type="hidden" name="deletefilename" value="<?php echo $myfiles[$y]?>"/>
         <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'de' ?>').submit();"><ion-icon name="trash-outline"></ion-icon></a>
         </form>
         <?php

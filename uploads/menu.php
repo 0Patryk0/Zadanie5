@@ -89,7 +89,7 @@ $file = $_SESSION ['ur_name']."/".$myfiles[$y];
         echo "<->";
         ?>
         <form id="<?php echo $myfiles[$y].'u' ?>" action="delete.php" method="post">
-        <input type="hidden" name="subdir" value="<?php echo $myfiles[$y]?>"/>
+        <input type="hidden" name="deletefilename" value="<?php echo $myfiles[$y]?>"/>
         <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'u' ?>').submit();"><ion-icon name="trash-outline"></ion-icon></a>
         </form>
         </div>
@@ -109,7 +109,7 @@ $file = $_SESSION ['ur_name']."/".$myfiles[$y];
         echo "<->";
         ?>
         <form id="<?php echo $myfiles[$y].'d' ?>" action="delete.php" method="post">
-        <input type="hidden" name="deletefile" value="<?php echo $myfiles[$y]?>"/>
+        <input type="hidden" name="deletefilename" value="<?php echo $myfiles[$y]?>"/>
         <a href="#" onclick="document.getElementById('<?php echo $myfiles[$y].'d' ?>').submit();"><ion-icon name="trash-outline"></ion-icon></a>
         </form>
         <?php
